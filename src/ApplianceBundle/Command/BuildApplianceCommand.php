@@ -1,8 +1,8 @@
 <?php
-namespace AppBundle\Command;
+namespace ApplianceBundle\Command;
 
-use AppBundle\Entity\Appliance;
-use AppBundle\Entity\Light;
+use ApplianceBundle\Entity\Appliance;
+use ApplianceBundle\Entity\Light;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
