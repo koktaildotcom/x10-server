@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Appliance
  *
  * @ORM\Table(name="appliance")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ApplianceRepository")
+ * @ORM\Entity(repositoryClass="ApplianceBundle\Repository\ApplianceRepository")
  */
 class Appliance
 {

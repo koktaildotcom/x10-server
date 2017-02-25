@@ -1,1 +1,11 @@
 Hello World!
+
+<ul>
+{% for appliances in appliances %}
+    <h2>{{ appliances.name }}</h2>
+    <ul>
+        <li><a href="{{ path("appliance_on", {'code': appliances.code} ) }}">on</a></li>
+        <li><a href="{{ path("appliance_off", {'code': appliances.code} ) }}">off</a></li>
+    </ul>
+{% endfor %}
+</ul>
