@@ -23,12 +23,15 @@ class BuildApplianceCommand extends ContainerAwareCommand
 
             ->addArgument('type', InputArgument::REQUIRED)
 
+            ->addArgument('name', InputArgument::REQUIRED)
+
             ->addArgument('code', InputArgument::REQUIRED)
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $name = $input->getArgument('name');
         $type = $input->getArgument('type');
         $code = $input->getArgument('code');
 
@@ -40,6 +43,7 @@ class BuildApplianceCommand extends ContainerAwareCommand
                 $appliance = new Appliance();
         }
 
+        $appliance->setName($name);
         $appliance->setCode($code);
 
         /** @var $em EntityManager */
