@@ -75,7 +75,7 @@ class RunCronCommand extends ContainerAwareCommand
         $start->setTime(8,0);
 
         $end = new DateTime();
-        $end->setTime(15,0);
+        $end->setTime(18,0);
 
         if ($start <= $now && $end >= $now) {
             $output->writeln(sprintf('@%s The appliance %s is in the active range.', $now->format("d-m-Y H:i:s"), $appliance->getName()));
