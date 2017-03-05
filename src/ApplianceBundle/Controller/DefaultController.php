@@ -2,6 +2,8 @@
 namespace ApplianceBundle\Controller;
 
 use ApplianceBundle\Entity\Appliance;
+use ApplianceBundle\Repository\ApplianceRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -16,12 +18,44 @@ class DefaultController extends Controller
         $repository = $this->getDoctrine()->getRepository(Appliance::class);
 
         $appliances = $repository->findAll();
-        
-        return $this->render('ApplianceBundle:Default:index.html.twig',
+
+            return $this->render('ApplianceBundle:Default:index.html.twig',
             [
                 'appliances' => $appliances,
             ]
         );
+    }
+
+    private function turnOff(Appliance $appliance)
+    {
+        $appliance->setStatus('off');
+
+        /** @var $em EntityManager */
+        $em = $this->getDoctrine()->getManager();
+
+        $command = ' echo "pl ' . $appliance->getCode() . ' off" | nc localhost 1099';
+
+        echo $command . "<br>";
+        exec($command);
+
+        $em->persist($appliance);
+        $em->flush();
+    }
+
+    private function turnOn(Appliance $appliance)
+    {
+        $appliance->setStatus('on');
+
+        /** @var $em EntityManager */
+        $em = $this->getDoctrine()->getManager();
+
+        $command = ' echo "pl ' . $appliance->getCode() . ' on" | nc localhost 1099';
+
+        echo $command . "<br>";
+        exec($command);
+
+        $em->persist($appliance);
+        $em->flush();
     }
 
     /**
@@ -29,22 +63,13 @@ class DefaultController extends Controller
      */
     public function onAction($code)
     {
+        /** @var $repository ApplianceRepository */
         $repository = $this->getDoctrine()->getRepository(Appliance::class);
+        $appliance = $repository->getAppliance($code);
 
-        
-        $command = ' echo "pl ' . $code . ' on" | nc localhost 1099';
+        $this->turnOn($appliance);
 
-        echo $command . "\n";
-        exec($command);
-
-
-        $appliances = $repository->findAll();
-
-        return $this->render('ApplianceBundle:Default:index.html.twig',
-            [
-                'appliances' => $appliances,
-            ]
-        );
+        return $this->redirectToRoute('appliance_list');
     }
 
     /**
@@ -52,21 +77,12 @@ class DefaultController extends Controller
      */
     public function offAction($code)
     {
+        /** @var $repository ApplianceRepository */
         $repository = $this->getDoctrine()->getRepository(Appliance::class);
+        $appliance = $repository->getAppliance($code);
 
+        $this->turnOff($appliance);
 
-        $command = ' echo "pl ' . $code . ' off" | nc localhost 1099';
-
-        echo $command . "\n";
-        exec($command);
-
-
-        $appliances = $repository->findAll();
-
-        return $this->render('ApplianceBundle:Default:index.html.twig',
-            [
-                'appliances' => $appliances,
-            ]
-        );
+        return $this->redirectToRoute('appliance_list');
     }
 }

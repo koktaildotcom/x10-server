@@ -1,4 +1,4 @@
 services:
-#    appliance.example:
-#        class: ApplianceBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    appliance.event_handler_service:
+        class: EventHandlerService
+        arguments: ['%app.mailer.transport%']

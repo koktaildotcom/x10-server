@@ -1,5 +1,6 @@
-Hello World!
+{% extends 'base.html.twig' %}
 
+{% block body %}
 <ul>
 {% for appliances in appliances %}
     <h2>{{ appliances.name }}</h2>
@@ -9,3 +10,4 @@ Hello World!
     </ul>
 {% endfor %}
 </ul>
+{% endblock %}

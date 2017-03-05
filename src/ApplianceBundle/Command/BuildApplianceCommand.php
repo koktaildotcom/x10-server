@@ -21,11 +21,11 @@ class BuildApplianceCommand extends ContainerAwareCommand
             // the short description shown while running "php bin/console list"
             ->setDescription('Creates new appliance.')
 
+            ->addArgument('code', InputArgument::REQUIRED)
+
             ->addArgument('type', InputArgument::REQUIRED)
 
             ->addArgument('name', InputArgument::REQUIRED)
-
-            ->addArgument('code', InputArgument::REQUIRED)
         ;
     }
 

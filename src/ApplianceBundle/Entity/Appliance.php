@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="appliance")
  * @ORM\Entity(repositoryClass="ApplianceBundle\Repository\ApplianceRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ *
  */
 class Appliance
 {

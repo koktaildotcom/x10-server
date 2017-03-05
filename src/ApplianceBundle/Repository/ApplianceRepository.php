@@ -10,4 +10,8 @@ namespace ApplianceBundle\Repository;
  */
 class ApplianceRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAppliance($code)
+    {
+        return $this->findOneBy(['code' => $code]);
+    }
 }

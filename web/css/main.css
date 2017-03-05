@@ -1,0 +1,42 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+ul
+{
+    list-style: none;
+
+    display: block;
+
+    float: left;
+
+    clear: both;
+}
+
+ul li
+{
+    display: block;
+
+    float: left;
+
+    margin-left:2px;
+}
+
+a
+{
+    display: block;
+
+    width:100px;
+
+    background-color: #777777;
+    
+    text-align: center;
+
+    text-decoration: none;
+
+    color: #Fff;
+
+    line-height:2em;
+}
