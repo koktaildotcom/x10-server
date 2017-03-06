@@ -1,6 +1,7 @@
 <?php
-
 namespace ApplianceBundle\Repository;
+
+use ApplianceBundle\Entity\Appliance;
 
 /**
  * ApplianceRepository
@@ -10,6 +11,19 @@ namespace ApplianceBundle\Repository;
  */
 class ApplianceRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return array|Appliance[]
+     */
+    public function findAll()
+    {
+        return parent::findAll();
+    }
+
+    /**
+     * @param $code
+     *
+     * @return null|Appliance
+     */
     public function getAppliance($code)
     {
         return $this->findOneBy(['code' => $code]);

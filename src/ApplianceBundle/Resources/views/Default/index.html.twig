@@ -1,13 +1,26 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form _self %}
+
+{%- block checkbox_widget -%}
+    <label class="switch">
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+        <div class="slider round"></div>
+    </label>
+{%- endblock checkbox_widget -%}
+
 {% block body %}
-<ul>
-{% for appliances in appliances %}
-    <h2>{{ appliances.name }}</h2>
-    <ul>
-        <li><a href="{{ path("appliance_on", {'code': appliances.code} ) }}">on</a></li>
-        <li><a href="{{ path("appliance_off", {'code': appliances.code} ) }}">off</a></li>
-    </ul>
-{% endfor %}
-</ul>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('body').find('form').change(function(){
+                console.log('submit');
+                $(this).submit();
+            });
+        });
+    </script>
+
+    {{ form(form) }}
+
 {% endblock %}
