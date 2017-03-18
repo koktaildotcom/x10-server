@@ -1,3 +1,8 @@
 app:
     resource: "@ApplianceBundle/Controller/DefaultController.php"
     type:     annotation
+
+appliance_api:
+    type:     rest
+    resource: "@ApplianceBundle/Controller/ApplianceApiController.php"
+    prefix: "/api"
