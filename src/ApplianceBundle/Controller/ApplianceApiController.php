@@ -39,7 +39,7 @@ class ApplianceApiController extends FOSRestController
         $appliance = $repository->getAppliance($slug);
 
         if($appliance->getStatus()==='off'){
-            return new Response('already off', 400);
+            return new Response(json_encode([$appliance->getCode() => 'failed']), 200);
         }
         $appliance->setStatus('off');
 
@@ -53,7 +53,7 @@ class ApplianceApiController extends FOSRestController
         $em->persist($appliance);
         $em->flush();
 
-        return new Response(json_encode($command), 200);
+        return new Response(json_encode([$appliance->getCode() => 'success']), 200);
     }
 
     /**
@@ -68,7 +68,7 @@ class ApplianceApiController extends FOSRestController
         $appliance = $repository->getAppliance($slug);
 
         if($appliance->getStatus()==='on'){
-            return new Response('already on', 400);
+            return new Response(json_encode([$appliance->getCode() => 'failed']), 200);
         }
         $appliance->setStatus('on');
 
@@ -82,6 +82,6 @@ class ApplianceApiController extends FOSRestController
         $em->persist($appliance);
         $em->flush();
 
-        return new Response(json_encode($command), 200);
+        return new Response(json_encode([$appliance->getCode() => 'success']), 200);
     }
 }
