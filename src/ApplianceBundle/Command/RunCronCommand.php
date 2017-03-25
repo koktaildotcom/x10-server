@@ -72,7 +72,7 @@ class RunCronCommand extends ContainerAwareCommand
         $now = new DateTime();
 
         $start = new DateTime();
-        $start->setTime(8,0);
+        $start->setTime(7,0);
 
         $end = new DateTime();
         $end->setTime(18,0);
