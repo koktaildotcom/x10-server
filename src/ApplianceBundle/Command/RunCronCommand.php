@@ -20,7 +20,9 @@ class RunCronCommand extends ContainerAwareCommand
             ->setName('cron:run')
             // the short description shown while running "php bin/console list"
             ->setDescription('Run the cronjob.')
-            ->addArgument('code', InputArgument::REQUIRED);
+            ->addArgument('code', InputArgument::REQUIRED)
+            ->addArgument('on', InputArgument::REQUIRED)
+            ->addArgument('off', InputArgument::REQUIRED);
     }
 
 
@@ -60,6 +62,8 @@ class RunCronCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $code = $input->getArgument('code');
+        $on = $input->getArgument('on');
+        $off = $input->getArgument('off');
 
         /** @var $em EntityManager */
         $em = $this->getContainer()->get('doctrine')->getManager();
@@ -69,13 +73,18 @@ class RunCronCommand extends ContainerAwareCommand
 
         $appliance = $repository->getAppliance($code);
 
+	if(null === $appliance){
+           $output->writeln(sprintf('@%s No appliance found for code:%s.', $now->format("d-m-Y H:i:s"), $code));
+           exit;
+	}
+
         $now = new DateTime();
 
         $start = new DateTime();
-        $start->setTime(7,0);
+        $start->setTime($on,0);
 
         $end = new DateTime();
-        $end->setTime(18,0);
+        $end->setTime($off,0);
 
         if ($start <= $now && $end >= $now) {
             $output->writeln(sprintf('@%s The appliance %s is in the active range.', $now->format("d-m-Y H:i:s"), $appliance->getName()));
